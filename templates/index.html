@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise de Energia - Brasil</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Análise de Energia Elétrica - Brasil</h1>
+            <p>Explore dados energéticos por região e visualize potencial de transição para renováveis</p>
+        </header>
+
+        <div class="main-content">
+            <div class="map-container">
+                <div id="brazil-map"></div>
+                <div class="map-legend">
+                    <h4>Legenda:</h4>
+                    <div class="legend-item">
+                        <span class="color-box solar"></span>
+                        <span>Alto Potencial Solar</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="color-box wind"></span>
+                        <span>Alto Potencial Eólico</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="color-box hydro"></span>
+                        <span>Potencial Hidrelétrico</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard">
+                <div id="region-info" class="hidden">
+                    <h2 id="region-name"></h2>
+                    
+                    <div class="tabs">
+                        <button class="tab-button active" onclick="openTab('current')">Situação Atual</button>
+                        <button class="tab-button" onclick="openTab('historical')">Evolução Histórica</button>
+                        <button class="tab-button" onclick="openTab('predictions')">Previsões Futuras</button>
+                        <button class="tab-button" onclick="openTab('recommendations')">Recomendações IA</button>
+                    </div>
+
+                    <div id="current" class="tab-content active">
+                        <div class="energy-mix">
+                            <h3>Mix Energético Atual</h3>
+                            <div id="current-chart"></div>
+                        </div>
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <h4>Potencial Solar</h4>
+                                <div id="solar-potential" class="metric-value"></div>
+                            </div>
+                            <div class="metric-card">
+                                <h4>Potencial Eólico</h4>
+                                <div id="wind-potential" class="metric-value"></div>
+                            </div>
+                            <div class="metric-card">
+                                <h4>Potencial Hidrelétrico</h4>
+                                <div id="hydro-potential" class="metric-value"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="historical" class="tab-content">
+                        <h3>Evolução do Mix Energético</h3>
+                        <div id="historical-chart"></div>
+                    </div>
+
+                    <div id="predictions" class="tab-content">
+                        <h3>Previsões de Transição Energética</h3>
+                        <div id="predictions-chart"></div>
+                        <div class="prediction-controls">
+                            <label for="target-year">Ano Alvo:</label>
+                            <input type="number" id="target-year" min="2024" max="2035" value="2028">
+                            <button onclick="updatePredictions()">Atualizar Previsão</button>
+                        </div>
+                    </div>
+
+                    <div id="recommendations" class="tab-content">
+                        <h3>Recomendações Baseadas em IA</h3>
+                        <div id="recommendations-list"></div>
+                    </div>
+                </div>
+
+                <div id="welcome-message">
+                    <h2>Bem-vindo ao Sistema de Análise Energética</h2>
+                    <p>Clique em uma região do mapa para visualizar dados detalhados sobre:</p>
+                    <ul>
+                        <li>Mix energético atual</li>
+                        <li>Evolução histórica</li>
+                        <li>Previsões de transição para renováveis</li>
+                        <li>Recomendações baseadas em Machine Learning</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
